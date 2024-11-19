@@ -11,7 +11,7 @@ typedef struct
 class objPos
 {
     public:
-        Pos* pos;        
+        Pos* pos; // This is the pointer to the pos struct.  This is why we reference it with the arrow operator.        
         char symbol;
 
         objPos();
