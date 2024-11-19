@@ -58,6 +58,7 @@ objPos& objPos::operator=(const objPos &a) {
     pos->x = a.pos->x;
     pos->y = a.pos->y;
     }
+    return *this;
 }
 
 

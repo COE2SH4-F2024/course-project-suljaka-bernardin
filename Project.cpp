@@ -64,11 +64,24 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
+    MacUILib_clearScreen();
     objPos playerPos = myPlayer->getPlayerPos();
-
+    int boardY = myGM->getBoardSizeY();
+    int boardX = myGM->getBoardSizeX();
     // See the picture that I took in the tutorial
-    
-    MacUILib_clearScreen();    
+    for (int rows = 0; rows < boardY; rows++)
+    {
+        for (int cols = 0; cols<boardX;cols++)
+        {
+            if (rows == 0||rows == boardY-1||cols == 0||cols ==boardX -1)
+                MacUILib_printf("#");
+            else if(rows == playerPos.pos->y && cols == playerPos.pos->x)
+                MacUILib_printf("%c", playerPos.symbol);
+            else
+                MacUILib_printf(" ");
+        }
+        MacUILib_printf("\n");
+    } 
 }
 
 void LoopDelay(void)
