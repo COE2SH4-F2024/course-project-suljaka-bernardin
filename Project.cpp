@@ -77,6 +77,9 @@ void DrawScreen(void)
                 MacUILib_printf("#");
             else if(rows == playerPos.pos->y && cols == playerPos.pos->x)
                 MacUILib_printf("%c", playerPos.symbol);
+            else if (rows == 8 && cols == 8) {
+                MacUILib_printf("9");
+            }
             else
                 MacUILib_printf(" ");
         }
