@@ -11,7 +11,9 @@ using namespace std;
 Player *myPlayer;
 GameMechs * myGM;
 
-bool exitFlag;
+// EARTH TO FUTURE ADAM THERE EXISTS A GETSCORE AND INCREMENT SCORE AND ALL THIS COOL STUFF PLS LOOK AT THE CLASS BUT IDK IF THIS IS ITERATION 3 OR NOT HAHAHAHAH
+
+
 
 void Initialize(void);
 void GetInput(void);
@@ -27,7 +29,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(myGM->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -48,18 +50,20 @@ void Initialize(void)
     myGM = new GameMechs();
     myPlayer = new Player(myGM);
 
-    exitFlag = false;
+
 }
 
 void GetInput(void)
 {
-   
+   myGM->getInput();
 }
 
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    myGM->clearInput();
+    
     
 }
 
@@ -73,7 +77,7 @@ void DrawScreen(void)
     {
         for (int cols = 0; cols<boardX; cols++)
         {
-            if (rows == 0 || rows == boardY-1||cols == 0||cols ==boardX -1)
+            if (rows == 0 || rows == boardY - 1||cols == 0||cols == boardX - 1)
                 MacUILib_printf("#");
             else if(rows == playerPos.pos->y && cols == playerPos.pos->x)
                 MacUILib_printf("%c", playerPos.symbol);
@@ -88,6 +92,10 @@ void DrawScreen(void)
     MacUILib_printf("%c", myPlayer->getInput());
     MacUILib_printf("\n");
     MacUILib_printf("%c", myGM->getInput());
+    if(myGM->getLoseFlagStatus())
+        MacUILib_printf("\nYOU LOSE");
+    if(myGM->getExitFlagStatus())
+        MacUILib_printf("\nYOU GAVE UP!");
 
 
 
@@ -101,7 +109,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    //MacUILib_clearScreen();    
 
     MacUILib_uninit();
 
