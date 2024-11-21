@@ -58,6 +58,7 @@ void GetInput(void)
 
 void RunLogic(void)
 {
+    myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
     
 }
@@ -68,12 +69,11 @@ void DrawScreen(void)
     objPos playerPos = myPlayer->getPlayerPos();
     int boardY = myGM->getBoardSizeY();
     int boardX = myGM->getBoardSizeX();
-    // See the picture that I took in the tutorial
     for (int rows = 0; rows < boardY; rows++)
     {
-        for (int cols = 0; cols<boardX;cols++)
+        for (int cols = 0; cols<boardX; cols++)
         {
-            if (rows == 0||rows == boardY-1||cols == 0||cols ==boardX -1)
+            if (rows == 0 || rows == boardY-1||cols == 0||cols ==boardX -1)
                 MacUILib_printf("#");
             else if(rows == playerPos.pos->y && cols == playerPos.pos->x)
                 MacUILib_printf("%c", playerPos.symbol);
@@ -84,7 +84,13 @@ void DrawScreen(void)
                 MacUILib_printf(" ");
         }
         MacUILib_printf("\n");
-    } 
+    }
+    MacUILib_printf("%c", myPlayer->getInput());
+    MacUILib_printf("\n");
+    MacUILib_printf("%c", myGM->getInput());
+
+
+
 }
 
 void LoopDelay(void)

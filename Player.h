@@ -15,23 +15,39 @@ class Player
 
     
     public:
-        enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
+
+        // It is interesting that this is public, and to be honest, not fully determined why this is public
+        enum Dir {STOP, UP, DOWN, LEFT, RIGHT};  // This is the direction state
 
         Player(GameMechs* thisGMRef);
+
+        // Adding the default constructor
+        Player();
         ~Player();
+
+        // Adding the Rule of Minimum 4 to the Project!!!
+        Player(const Player &a);
+        Player& operator=(const Player &a);
 
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();
         void movePlayer();
 
+        char getInput();
+
         // More methods to be added here
 
     private:
+
+        // This is used for holding the player position 
         objPos playerPos; // Upgrade this in iteration 3.       
         enum Dir myDir;
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
+
+        // This is a character that will be used for debugging
+        char state = 'x';
 };
 
 #endif
