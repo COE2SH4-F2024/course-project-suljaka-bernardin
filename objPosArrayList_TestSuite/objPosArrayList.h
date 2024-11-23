@@ -16,6 +16,12 @@ class objPosArrayList
         objPosArrayList();
         ~objPosArrayList();
 
+        // Define the rule of 6 / minimum 4 later
+
+        objPosArrayList(const objPosArrayList &a);
+    	objPosArrayList& operator=(const objPosArrayList &a);
+
+
         int getSize() const;
         void insertHead(objPos thisPos);
         void insertTail(objPos thisPos);

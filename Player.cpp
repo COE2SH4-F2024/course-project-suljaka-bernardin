@@ -76,7 +76,7 @@ Player& Player::operator=(const Player &a) {
     return *this;
 }
 
-objPos Player::getPlayerPos() const
+objPos Player::getPlayerPos() const // In tutorial this is said to be a pointer
 {
     // return the reference to the playerPos arrray list
 
