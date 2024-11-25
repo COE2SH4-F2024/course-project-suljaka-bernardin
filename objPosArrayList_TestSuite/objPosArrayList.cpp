@@ -23,6 +23,7 @@ objPosArrayList::~objPosArrayList()
 
     // Standard deletion as seen in lecture
 
+
     delete[] aList;
 
 }
@@ -56,10 +57,20 @@ objPosArrayList& objPosArrayList::operator=(const objPosArrayList &a) {
     // We use the same this check as previously written in Player.cpp
     // Then just deep copy normally
 
-    // if (this != &a) {
-    //     arrayCapacity = a.arrayCapacity;
-    //     listSize = a.listSize;
-    // }
+    if (this != &a) {
+        arrayCapacity = a.arrayCapacity;
+        listSize = a.listSize;
+
+        // Do our deep copy
+
+        for (int i = 0; i < listSize; i++) {
+            aList[i] = a.aList[i];
+    }
+
+
+    }
+
+    return *this;
 
 
 }
@@ -108,6 +119,8 @@ void objPosArrayList::insertTail(objPos thisPos)
     // To insert the tail, it is far easier.  We just need to insert something at the very end of the list
 
     // We will return it the arrayCap = listSize, since we do not want to go over the arrayCapacity.
+
+    // We also need a check to make sure the listSize is not equal to 0 already.
 
     if (listSize == arrayCapacity) {
         return;
@@ -159,10 +172,7 @@ void objPosArrayList::removeTail()
         return;
     } else {
         listSize--;  
-    }
-
-    listSize--;
-    
+    }    
 }
 
 objPos objPosArrayList::getHeadElement() const
@@ -191,6 +201,8 @@ objPos objPosArrayList::getElement(int index) const
 
     if (index < 0) {
         index = 0;
+    } else if (listSize == 0) {
+        index = listSize;
     } else if (index >= listSize) {
         index = listSize - 1;
     }
