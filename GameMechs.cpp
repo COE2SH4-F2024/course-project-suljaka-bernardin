@@ -1,5 +1,6 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
+#include <time.h>
 
 GameMechs::GameMechs()
 {
@@ -76,7 +77,7 @@ char GameMechs::getInput()
     if (input == ' ') {
         exitFlag = true;
     }
-
+    
     return input;
     
 
@@ -127,3 +128,50 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
+void GameMechs::generateFood(objPos blockOff)
+{
+    
+    
+        srand(time(NULL));
+        int rand_x = rand() % (boardSizeX - 2)+1; //Initially sets x and y coordinates
+        int rand_y = rand() % (boardSizeY - 2)+1;
+        int rand_char = 0;
+        
+            int pass= 0;
+            while (!pass){
+            if (blockOff.pos->x == rand_x || blockOff.pos->y == rand_y) //Player or prev. obj pos
+            {
+                rand_x = rand() % (boardSizeX-2)+1;
+                rand_y = rand() % (boardSizeY-2)+1;
+            }
+            else
+            pass = 1;
+            }
+            food.setObjPos(rand_x,rand_y,'A');
+            // if ((str[rand_char] == list[k].player) && i<2) //Generates for only 0,1
+            // {
+            //     rand_char = rand() % (12);
+            //     reset = 1;
+            // }
+            // else if ((rand_char == list[k].player && i>1)|| (rand_char == 64 || rand_char == 35)) //Won't make @ or #, gens any rand char
+            // {
+            //     rand_char = rand() %(127-33)+33;
+            //     reset = 1;
+            // }
+            // if (reset) 
+            // k--;
+        
+        
+        // list[i].x = rand_x;
+        // list[i].y = rand_y;
+        // if (i<2)
+        // list[i].player = str[rand_char]; //rand char is index and picks from goal string
+        // else
+        // list[i].player = rand_char; //rand char is ascii value
+    }
+
+
+objPos GameMechs::getFoodPos()
+{
+    return food;
+}

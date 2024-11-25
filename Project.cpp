@@ -49,6 +49,7 @@ void Initialize(void)
 
     myGM = new GameMechs();
     myPlayer = new Player(myGM);
+    myGM->generateFood(myPlayer->getPlayerPos());
 
 
 }
@@ -56,12 +57,15 @@ void Initialize(void)
 void GetInput(void)
 {
    myGM->getInput();
+   
 }
 
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    if (myGM->getInput() == 'r')
+        myGM->generateFood(myPlayer->getPlayerPos());
     myGM->clearInput();
     
     
@@ -83,6 +87,10 @@ void DrawScreen(void)
                 MacUILib_printf("%c", playerPos.symbol);
             else if (rows == 8 && cols == 8) {
                 MacUILib_printf("9");
+            }
+            else if (rows == myGM->getFoodPos().pos->y && cols == myGM->getFoodPos().pos->x)
+            {
+                MacUILib_printf("%c", myGM->getFoodPos().symbol);
             }
             else
                 MacUILib_printf(" ");
