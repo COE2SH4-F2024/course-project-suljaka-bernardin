@@ -139,7 +139,7 @@ void GameMechs::generateFood(objPos blockOff)
         
             int pass= 0;
             while (!pass){
-            if (blockOff.pos->x == rand_x || blockOff.pos->y == rand_y) //Player or prev. obj pos
+            if (blockOff.pos->x == rand_x || blockOff.pos->y == rand_y ||food.pos->x == rand_x || food.pos->y == rand_y ) //Player or prev. obj pos
             {
                 rand_x = rand() % (boardSizeX-2)+1;
                 rand_y = rand() % (boardSizeY-2)+1;
