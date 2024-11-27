@@ -47,9 +47,6 @@ Player::Player(GameMechs* thisGMRef)
 
     playerPosList->insertHead(playerPos);
 
-    for (int i = 0; i < 4; i++)
-        playerPosList->insertTail(playerPos);
-
 
     // more actions to be included in Iteration 3
 
