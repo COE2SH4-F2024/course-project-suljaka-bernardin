@@ -47,9 +47,6 @@ Player::Player(GameMechs* thisGMRef)
 
     playerPosList->insertHead(playerPos);
 
-    for (int i = 0; i < 4; i++)
-        playerPosList->insertTail(playerPos);
-
 
     // more actions to be included in Iteration 3
 
@@ -236,7 +233,7 @@ void Player::movePlayer()
         // I am not sure if this is all this part is if I am being honest here
 
         if (checkFoodConsumption()) {
-            increasePlayerLength();
+            increasePlayerLength(playerPos);
         } else {
             standardMovement(playerPos);
         }
@@ -251,7 +248,7 @@ void Player::movePlayer()
         }
 
         if (checkFoodConsumption()) {
-            increasePlayerLength();
+            increasePlayerLength(playerPos);
         } else {
             standardMovement(playerPos);
         }
@@ -264,7 +261,7 @@ void Player::movePlayer()
         }
 
         if (checkFoodConsumption()) {
-            increasePlayerLength();
+            increasePlayerLength(playerPos);
         } else {
             standardMovement(playerPos);
         }
@@ -277,7 +274,7 @@ void Player::movePlayer()
         }
 
         if (checkFoodConsumption()) {
-            increasePlayerLength();
+            increasePlayerLength(playerPos);
         } else {
             standardMovement(playerPos);
         }
@@ -307,9 +304,9 @@ bool Player::checkFoodConsumption()
     }
 }
 
-void Player::increasePlayerLength()
+void Player::increasePlayerLength(objPos playerPos)
 {
-    playerPosList->insertHead(playerPosList->getTailElement());
+    playerPosList->insertHead(playerPos);
 }
 
 // This method has been included because this block of code has been reused 4 times and we don't want to rewirte it :)
