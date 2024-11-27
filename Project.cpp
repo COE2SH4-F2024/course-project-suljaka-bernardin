@@ -84,8 +84,7 @@ void DrawScreen(void)
         {
 
             for (int k = 0; k < playerPosArrayList->getSize(); k++) {
-                if (rows == playerPosArrayList->getElement(k).pos->y && cols == playerPosArrayList->getElement(k).pos->x) {
-                    
+                if (rows == playerPosArrayList->getElement(k).pos->y && cols == playerPosArrayList->getElement(k).pos->x) {                    
                     // Copying the snake values in if we have any.  We set those to the rows and columns of the array that are in.
                     // If we print from here, the printing of the snake will not be done in the if/else statement and we will get a sapce character
 
@@ -100,7 +99,7 @@ void DrawScreen(void)
                 MacUILib_printf("#");
 
 
-            } else if (rows == snakePrint.pos->x && rows == snakePrint.pos->y) {
+            } else if (cols == snakePrint.pos->x && rows == snakePrint.pos->y) {
 
                 MacUILib_printf("%c", snakePrint.symbol);
             
@@ -123,7 +122,7 @@ void DrawScreen(void)
     }
     MacUILib_printf("%c", myPlayer->getInput());
     MacUILib_printf("\n");
-    MacUILib_printf("%c", myGM->getInput());
+    MacUILib_printf("%d", playerPosArrayList->getSize());
     if(myGM->getLoseFlagStatus())
         MacUILib_printf("\nYOU LOSE");
     if(myGM->getExitFlagStatus())

@@ -23,6 +23,7 @@ Player::Player() {
 
     playerPosList->insertHead(playerPos);
 
+
 }
 
 
@@ -42,14 +43,16 @@ Player::Player(GameMechs* thisGMRef)
 
     playerPos.pos->x = mainGameMechsRef->getBoardSizeX()/2-1; 
     playerPos.pos->y = mainGameMechsRef->getBoardSizeY()/2-1;
-    playerPos.symbol = '@';
+    playerPos.symbol = '*';
 
     playerPosList->insertHead(playerPos);
+
+    for (int i = 0; i < 4; i++)
+        playerPosList->insertTail(playerPos);
 
 
     // more actions to be included in Iteration 3
 
-    // NEED TO ASK HOW THIS CHANGES I AM REALLY CONFUSED
 }
 
 
@@ -57,7 +60,6 @@ Player::Player(GameMechs* thisGMRef)
 
 Player::~Player()
 {
-    delete mainGameMechsRef;
     delete playerPosList;
 }
 
@@ -76,7 +78,6 @@ Player::Player(const Player &a) {
     playerPos.pos->x = a.mainGameMechsRef->getBoardSizeX()/2-1; 
     playerPos.pos->y = a.mainGameMechsRef->getBoardSizeY()/2-1;
     playerPos.symbol = a.playerPosList->getHeadElement().symbol;
-
 
     playerPosList->insertHead(playerPos);
 
