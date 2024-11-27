@@ -47,6 +47,9 @@ Player::Player(GameMechs* thisGMRef)
 
     playerPosList->insertHead(playerPos);
 
+    for (int i = 0; i < 4; i++)
+        playerPosList->insertTail(playerPos);
+
 
     // more actions to be included in Iteration 3
 
@@ -234,6 +237,7 @@ void Player::movePlayer()
 
         if (checkFoodConsumption()) {
             increasePlayerLength(playerPos);
+            mainGameMechsRef->generateFood(playerPosList);
         } else {
             standardMovement(playerPos);
         }
@@ -249,6 +253,7 @@ void Player::movePlayer()
 
         if (checkFoodConsumption()) {
             increasePlayerLength(playerPos);
+            mainGameMechsRef->generateFood(playerPosList);
         } else {
             standardMovement(playerPos);
         }
@@ -262,6 +267,8 @@ void Player::movePlayer()
 
         if (checkFoodConsumption()) {
             increasePlayerLength(playerPos);
+            mainGameMechsRef->generateFood(playerPosList);
+
         } else {
             standardMovement(playerPos);
         }
@@ -275,6 +282,7 @@ void Player::movePlayer()
 
         if (checkFoodConsumption()) {
             increasePlayerLength(playerPos);
+            mainGameMechsRef->generateFood(playerPosList);
         } else {
             standardMovement(playerPos);
         }
