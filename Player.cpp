@@ -235,8 +235,11 @@ void Player::movePlayer()
         // NEED TO CHECK THIS IMPLEMENTATION BADLY
         // I am not sure if this is all this part is if I am being honest here
 
-        playerPosList->insertHead(playerPos);
-        playerPosList->removeTail();
+        if (checkFoodConsumption()) {
+            increasePlayerLength();
+        } else {
+            standardMovement(playerPos);
+        }
 
     // The rest of this is repeated code from PPA3, hence I haven't gone through and commented it all
 
@@ -247,8 +250,11 @@ void Player::movePlayer()
             playerPos.pos->y += 1;
         }
 
-        playerPosList->insertHead(playerPos);
-        playerPosList->removeTail();
+        if (checkFoodConsumption()) {
+            increasePlayerLength();
+        } else {
+            standardMovement(playerPos);
+        }
 
     } else if (myDir == LEFT) {
         if (playerPos.pos->x == 1) {
@@ -257,8 +263,11 @@ void Player::movePlayer()
             playerPos.pos->x -=1;
         }
 
-        playerPosList->insertHead(playerPos);
-        playerPosList->removeTail();
+        if (checkFoodConsumption()) {
+            increasePlayerLength();
+        } else {
+            standardMovement(playerPos);
+        }
 
     } else if (myDir == RIGHT) {
         if (playerPos.pos->x == mainGameMechsRef->getBoardSizeX()-2) {
@@ -267,8 +276,11 @@ void Player::movePlayer()
             playerPos.pos->x += 1;
         }
 
-        playerPosList->insertHead(playerPos);
-        playerPosList->removeTail();
+        if (checkFoodConsumption()) {
+            increasePlayerLength();
+        } else {
+            standardMovement(playerPos);
+        }
     }
 
     
@@ -280,6 +292,33 @@ void Player::movePlayer()
 char Player::getInput() {
 
     return state;
+
+}
+
+bool Player::checkFoodConsumption()
+{
+    if (playerPosList->getHeadElement().pos->x == mainGameMechsRef->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == mainGameMechsRef->getFoodPos().pos->y)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void Player::increasePlayerLength()
+{
+    playerPosList->insertHead(playerPosList->getTailElement());
+}
+
+// This method has been included because this block of code has been reused 4 times and we don't want to rewirte it :)
+
+void Player::standardMovement(objPos playerPos) {
+
+    playerPosList->insertHead(playerPos);
+    playerPosList->removeTail();
+
 
 }
 

@@ -35,6 +35,9 @@ class Player
 
         char getInput();
 
+        bool checkFoodConsumption();
+        void increasePlayerLength();
+        void standardMovement(objPos playerPos);
         // More methods to be added here
 
     private:

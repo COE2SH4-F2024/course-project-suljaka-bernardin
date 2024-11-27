@@ -49,7 +49,7 @@ void Initialize(void)
 
     myGM = new GameMechs();
     myPlayer = new Player(myGM);
-    //myGM->generateFood(myPlayer->getPlayerPos());
+    myGM->generateFood(myPlayer->getPlayerPos());
 
 
 }
@@ -109,12 +109,12 @@ void DrawScreen(void)
             // This is problematic because we will probably need another drawing condition here.
             // Like we also need to check EVERY value of the snake which is going to be a bit of a nightmare
             // We also need to make sure food won't print over the snake but that should be Iteration 2.
-
-            // else if (rows == myGM->getFoodPos().pos->y && cols == myGM->getFoodPos().pos->x)
-            // {
-            //     MacUILib_printf("%c", myGM->getFoodPos().symbol);
-            // }
-            } else {
+            }
+            else if (rows == myGM->getFoodPos().pos->y && cols == myGM->getFoodPos().pos->x)
+            {
+                MacUILib_printf("%c", myGM->getFoodPos().symbol);
+            }
+            else {
                 MacUILib_printf(" ");
             }
         }

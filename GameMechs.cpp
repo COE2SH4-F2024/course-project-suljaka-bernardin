@@ -129,26 +129,33 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
-void GameMechs::generateFood(objPos blockOff)
+void GameMechs::generateFood(objPosArrayList* blockOff)
 {
     
     
         srand(time(NULL));
         int rand_x = rand() % (boardSizeX - 2)+1; //Initially sets x and y coordinates
         int rand_y = rand() % (boardSizeY - 2)+1;
-        int rand_char = 0;
         
-            int pass= 0;
-            while (!pass){
-            if (blockOff.pos->x == rand_x || blockOff.pos->y == rand_y ||food.pos->x == rand_x || food.pos->y == rand_y ) //Player or prev. obj pos
+        
+            
+            for (int i = 0; i<blockOff->getSize();i++)
             {
-                rand_x = rand() % (boardSizeX-2)+1;
-                rand_y = rand() % (boardSizeY-2)+1;
+                int reset = 0;
+                if ((blockOff->getElement(i).pos->x == rand_x && blockOff->getElement(i).pos->y == rand_y) ||(foodPos.pos->x == rand_x && foodPos.pos->y == rand_y) ) //Player or prev. obj pos
+                {
+                    rand_x = rand() % (boardSizeX-2)+1;
+                    rand_y = rand() % (boardSizeY-2)+1;
+                    reset = 1;
+                }
+                if (reset)
+                {
+                    i = -1;
+                    
+                }
             }
-            else
-            pass = 1;
-            }
-            food.setObjPos(rand_x,rand_y,'A');
+            foodPos.setObjPos(rand_x,rand_y,'A');
+
             // if ((str[rand_char] == list[k].player) && i<2) //Generates for only 0,1
             // {
             //     rand_char = rand() % (12);
@@ -174,5 +181,5 @@ void GameMechs::generateFood(objPos blockOff)
 
 objPos GameMechs::getFoodPos()
 {
-    return food;
+    return foodPos;
 }
