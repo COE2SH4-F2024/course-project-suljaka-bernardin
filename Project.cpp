@@ -120,13 +120,11 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("%c", myPlayer->getInput());
-    MacUILib_printf("\n");
-    MacUILib_printf("%d", playerPosArrayList->getSize());
+    MacUILib_printf("Score: %d\n", playerPosArrayList->getSize());
     if(myGM->getLoseFlagStatus())
-        MacUILib_printf("\nYOU LOSE");
-    if(myGM->getExitFlagStatus())
-        MacUILib_printf("\nYOU GAVE UP!");
+        MacUILib_printf("YOU LOSE\n");
+    else if(myGM->getExitFlagStatus())
+        MacUILib_printf("YOU GAVE UP!\n");
         // This is amazing
 
 

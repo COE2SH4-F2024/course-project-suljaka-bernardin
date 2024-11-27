@@ -38,6 +38,7 @@ class Player
         bool checkFoodConsumption();
         void increasePlayerLength(objPos playerPos);
         void standardMovement(objPos playerPos);
+        bool checkSelfCollision(objPos playerPos);
         // More methods to be added here
 
     private:

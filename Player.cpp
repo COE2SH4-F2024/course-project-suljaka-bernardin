@@ -232,11 +232,23 @@ void Player::movePlayer()
         // NEED TO CHECK THIS IMPLEMENTATION BADLY
         // I am not sure if this is all this part is if I am being honest here
 
-        if (checkFoodConsumption()) {
-            increasePlayerLength(playerPos);
-            mainGameMechsRef->generateFood(playerPosList);
+        // Checking for if the future position is going to collide with the snake, using the method we previously developed.
+        // We pass in playerPos, which is the prediction for the new head.
+
+        if (checkSelfCollision(playerPos)) {
+            mainGameMechsRef->setExitTrue();
+            mainGameMechsRef->setLoseFlag();
+
         } else {
-            standardMovement(playerPos);
+
+
+
+            if (checkFoodConsumption()) {
+                increasePlayerLength(playerPos);
+                mainGameMechsRef->generateFood(playerPosList);
+            } else {
+                standardMovement(playerPos);
+            }
         }
 
     // The rest of this is repeated code from PPA3, hence I haven't gone through and commented it all
@@ -248,11 +260,18 @@ void Player::movePlayer()
             playerPos.pos->y += 1;
         }
 
-        if (checkFoodConsumption()) {
-            increasePlayerLength(playerPos);
-            mainGameMechsRef->generateFood(playerPosList);
+        if (checkSelfCollision(playerPos)) {
+            mainGameMechsRef->setExitTrue();
+            mainGameMechsRef->setLoseFlag();
+
         } else {
-            standardMovement(playerPos);
+
+            if (checkFoodConsumption()) {
+                increasePlayerLength(playerPos);
+                mainGameMechsRef->generateFood(playerPosList);
+            } else {
+                standardMovement(playerPos);
+            }
         }
 
     } else if (myDir == LEFT) {
@@ -262,12 +281,19 @@ void Player::movePlayer()
             playerPos.pos->x -=1;
         }
 
-        if (checkFoodConsumption()) {
-            increasePlayerLength(playerPos);
-            mainGameMechsRef->generateFood(playerPosList);
+        if (checkSelfCollision(playerPos)) {
+            mainGameMechsRef->setExitTrue();
+            mainGameMechsRef->setLoseFlag();
 
         } else {
-            standardMovement(playerPos);
+
+            if (checkFoodConsumption()) {
+                increasePlayerLength(playerPos);
+                mainGameMechsRef->generateFood(playerPosList);
+
+            } else {
+                standardMovement(playerPos);
+            }
         }
 
     } else if (myDir == RIGHT) {
@@ -277,11 +303,18 @@ void Player::movePlayer()
             playerPos.pos->x += 1;
         }
 
-        if (checkFoodConsumption()) {
-            increasePlayerLength(playerPos);
-            mainGameMechsRef->generateFood(playerPosList);
+        if (checkSelfCollision(playerPos)) {
+            mainGameMechsRef->setExitTrue();
+            mainGameMechsRef->setLoseFlag();
+
         } else {
-            standardMovement(playerPos);
+
+            if (checkFoodConsumption()) {
+                increasePlayerLength(playerPos);
+                mainGameMechsRef->generateFood(playerPosList);
+            } else {
+                standardMovement(playerPos);
+            }
         }
     }
 
@@ -322,6 +355,25 @@ void Player::standardMovement(objPos playerPos) {
     playerPosList->removeTail();
 
 
+}
+
+bool Player::checkSelfCollision(objPos playerPos) {
+
+    // Loop through the array, and see if the head is equal to the position of ANY of the snake body characters
+
+    // We need to start at i = 1 because we do not want to check if the head collides with itself.
+
+    for(int i = 1; i < playerPosList->getSize(); i++) {
+
+        // Check to ensure that the head element is the same as any of the tail elements
+        if (playerPosList->getElement(i).pos->x == playerPos.pos->x && playerPosList->getElement(i).pos->y == playerPos.pos->y) {
+            return true;
+        }
+    }
+
+    // If it makes it through this entire loop, we will return FALSE
+
+    return false;
 }
 
 
