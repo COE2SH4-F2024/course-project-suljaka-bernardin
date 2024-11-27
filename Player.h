@@ -29,7 +29,7 @@ class Player
         Player(const Player &a);
         Player& operator=(const Player &a);
 
-        objPos getPlayerPos() const; // Upgrade this in iteration 3.       
+        objPosArrayList* getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();
         void movePlayer();
 
@@ -40,7 +40,7 @@ class Player
     private:
 
         // This is used for holding the player position 
-        objPos playerPos; // Upgrade this in iteration 3.       
+        objPosArrayList* playerPosList; // Upgrade this in iteration 3.    
         enum Dir myDir;
 
         // Need a reference to the Main Game Mechanisms

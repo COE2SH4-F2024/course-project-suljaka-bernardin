@@ -49,7 +49,7 @@ void Initialize(void)
 
     myGM = new GameMechs();
     myPlayer = new Player(myGM);
-    myGM->generateFood(myPlayer->getPlayerPos());
+    //myGM->generateFood(myPlayer->getPlayerPos());
 
 
 }
@@ -64,8 +64,6 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
-    if (myGM->getInput() == 'r')
-        myGM->generateFood(myPlayer->getPlayerPos());
     myGM->clearInput();
     
     
@@ -74,26 +72,52 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-    objPos playerPos = myPlayer->getPlayerPos();
+    objPosArrayList* playerPosArrayList = myPlayer->getPlayerPos(); // This is an edit implemented to accept the right data type
     int boardY = myGM->getBoardSizeY();
     int boardX = myGM->getBoardSizeX();
+    objPos snakePrint;
+
+    // At this iteration, we need to change this to print the full snake
     for (int rows = 0; rows < boardY; rows++)
     {
         for (int cols = 0; cols<boardX; cols++)
         {
-            if (rows == 0 || rows == boardY - 1||cols == 0||cols == boardX - 1)
+
+            for (int k = 0; k < playerPosArrayList->getSize(); k++) {
+                if (rows == playerPosArrayList->getElement(k).pos->y && cols == playerPosArrayList->getElement(k).pos->x) {
+                    
+                    // Copying the snake values in if we have any.  We set those to the rows and columns of the array that are in.
+                    // If we print from here, the printing of the snake will not be done in the if/else statement and we will get a sapce character
+
+                    snakePrint.pos->x = cols;
+                    snakePrint.pos->y = rows;
+                    snakePrint.symbol = playerPosArrayList->getElement(k).symbol;
+                }
+            }
+
+            
+            if (rows == 0 || rows == boardY - 1||cols == 0||cols == boardX - 1) {
                 MacUILib_printf("#");
-            else if(rows == playerPos.pos->y && cols == playerPos.pos->x)
-                MacUILib_printf("%c", playerPos.symbol);
-            else if (rows == 8 && cols == 8) {
-                MacUILib_printf("9");
-            }
-            else if (rows == myGM->getFoodPos().pos->y && cols == myGM->getFoodPos().pos->x)
-            {
-                MacUILib_printf("%c", myGM->getFoodPos().symbol);
-            }
-            else
+
+
+            } else if (rows == snakePrint.pos->x && rows == snakePrint.pos->y) {
+
+                MacUILib_printf("%c", snakePrint.symbol);
+            
+
+            
+
+            // This is problematic because we will probably need another drawing condition here.
+            // Like we also need to check EVERY value of the snake which is going to be a bit of a nightmare
+            // We also need to make sure food won't print over the snake but that should be Iteration 2.
+
+            // else if (rows == myGM->getFoodPos().pos->y && cols == myGM->getFoodPos().pos->x)
+            // {
+            //     MacUILib_printf("%c", myGM->getFoodPos().symbol);
+            // }
+            } else {
                 MacUILib_printf(" ");
+            }
         }
         MacUILib_printf("\n");
     }
@@ -104,6 +128,7 @@ void DrawScreen(void)
         MacUILib_printf("\nYOU LOSE");
     if(myGM->getExitFlagStatus())
         MacUILib_printf("\nYOU GAVE UP!");
+        // This is amazing
 
 
 

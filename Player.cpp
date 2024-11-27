@@ -7,15 +7,21 @@
 
 
 Player::Player() {
-
     
     myDir = STOP;
 
+    objPos playerPos;
+
     // We will arbitrarily set this to 9 and 4, which are the centre of the board-ish
 
+    playerPosList = new objPosArrayList;
+
+    // Passing in playerPos into the objPosArrayList
     playerPos.pos->x = 9;
     playerPos.pos->y = 4;
-    playerPos.symbol = '@';
+    playerPos.symbol = '*';
+
+    playerPosList->insertHead(playerPos);
 
 }
 
@@ -29,11 +35,21 @@ Player::Player(GameMechs* thisGMRef)
 
     // These will start us at the halfway point of the board (9 and 5 ish, should start us at the centre)
 
+    playerPosList = new objPosArrayList;
+
+    objPos playerPos;
+
+
     playerPos.pos->x = mainGameMechsRef->getBoardSizeX()/2-1; 
     playerPos.pos->y = mainGameMechsRef->getBoardSizeY()/2-1;
     playerPos.symbol = '@';
 
+    playerPosList->insertHead(playerPos);
+
+
     // more actions to be included in Iteration 3
+
+    // NEED TO ASK HOW THIS CHANGES I AM REALLY CONFUSED
 }
 
 
@@ -42,6 +58,7 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     delete mainGameMechsRef;
+    delete playerPosList;
 }
 
 // COPY CONSTRUCTOR ----------
@@ -51,9 +68,18 @@ Player::Player(const Player &a) {
 
     // Deep copy everything previously in the copy constructor!!
 
+    playerPosList = new objPosArrayList;
+
+    objPos playerPos;
+
+
     playerPos.pos->x = a.mainGameMechsRef->getBoardSizeX()/2-1; 
     playerPos.pos->y = a.mainGameMechsRef->getBoardSizeY()/2-1;
-    playerPos.symbol = a.playerPos.symbol;
+    playerPos.symbol = a.playerPosList->getHeadElement().symbol;
+
+
+    playerPosList->insertHead(playerPos);
+
 
 
 }
@@ -66,23 +92,33 @@ Player& Player::operator=(const Player &a) {
     if (this != &a) {
 
         // Deep copy as previously seen in Copy Constructor
+
+
+        objPos playerPos;
+
         
         playerPos.pos->x = a.mainGameMechsRef->getBoardSizeX()/2-1; 
         playerPos.pos->y = a.mainGameMechsRef->getBoardSizeY()/2-1;
-        playerPos.symbol = a.playerPos.symbol;
+        playerPos.symbol = a.playerPosList->getHeadElement().symbol;
+
+        playerPosList->insertHead(playerPos);
+
+
 
     }
 
     return *this;
 }
 
-objPos Player::getPlayerPos() const // In tutorial this is said to be a pointer
+objPosArrayList* Player::getPlayerPos() const // In tutorial this is said to be a pointer
 {
     // return the reference to the playerPos arrray list
 
-    // I have no idea if this part is right if I am being honest
+    // I have no idea if this part is right if I am being honest\\
+    
+    // FOr getPlayerPos, we are supposed to return the reference to the entire list
 
-    return playerPos;
+    return playerPosList;
 }
 
 void Player::updatePlayerDir()
@@ -176,6 +212,9 @@ void Player::movePlayer()
 
     // Moving the character up
 
+    objPos playerPos = playerPosList->getHeadElement();
+
+
     if (myDir == UP) {
 
         // Checking the wraparound condition
@@ -188,6 +227,16 @@ void Player::movePlayer()
             playerPos.pos->y -= 1;
         }
 
+        // Insert the new playerPos into the head of the array.
+        // Then remove the last element from the list
+
+        // This is how we provide the illusion that the snake is moving.
+        // NEED TO CHECK THIS IMPLEMENTATION BADLY
+        // I am not sure if this is all this part is if I am being honest here
+
+        playerPosList->insertHead(playerPos);
+        playerPosList->removeTail();
+
     // The rest of this is repeated code from PPA3, hence I haven't gone through and commented it all
 
     } else if (myDir == DOWN) {
@@ -196,18 +245,29 @@ void Player::movePlayer()
         } else {
             playerPos.pos->y += 1;
         }
+
+        playerPosList->insertHead(playerPos);
+        playerPosList->removeTail();
+
     } else if (myDir == LEFT) {
         if (playerPos.pos->x == 1) {
             playerPos.pos->x = mainGameMechsRef->getBoardSizeX()-2;
         } else {
             playerPos.pos->x -=1;
         }
+
+        playerPosList->insertHead(playerPos);
+        playerPosList->removeTail();
+
     } else if (myDir == RIGHT) {
         if (playerPos.pos->x == mainGameMechsRef->getBoardSizeX()-2) {
             playerPos.pos->x = 1;
         } else {
             playerPos.pos->x += 1;
         }
+
+        playerPosList->insertHead(playerPos);
+        playerPosList->removeTail();
     }
 
     
