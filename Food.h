@@ -19,6 +19,7 @@ class Food {
         int boardX;
         int boardY;
         int firstPass = 0; // This is used in the regeneration
+        objPos lastFood[NUMFOODS];
 
     public:
         Food();
@@ -29,6 +30,8 @@ class Food {
 
         void generateFood(objPosArrayList* blockOff);
         objPosArrayList* getFoodPos();
+        void deleteFoodArray();
+        objPos* getLastFood();
 
 
 };

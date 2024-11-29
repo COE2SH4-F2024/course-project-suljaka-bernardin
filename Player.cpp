@@ -254,6 +254,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
+                foodBin->deleteFoodArray();
                 foodBin->generateFood(playerPosList);
             } else {
                 standardMovement(playerPos);
@@ -277,6 +278,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
+                foodBin->deleteFoodArray();
                 foodBin->generateFood(playerPosList);
             } else {
                 standardMovement(playerPos);
@@ -298,6 +300,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
+                foodBin->deleteFoodArray();
                 foodBin->generateFood(playerPosList);
 
             } else {
@@ -320,6 +323,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
+                foodBin->deleteFoodArray();
                 foodBin->generateFood(playerPosList);
             } else {
                 standardMovement(playerPos);

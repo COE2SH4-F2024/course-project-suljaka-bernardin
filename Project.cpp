@@ -78,6 +78,7 @@ void DrawScreen(void)
     int boardX = myGM->getBoardSizeX();
     objPos snakePrint;
     objPos foodPrint;
+    objPos* lastFoodPrint = myFood->getLastFood();
 
     // At this iteration, we need to change this to print the full snake
     for (int rows = 0; rows < boardY; rows++)
@@ -139,7 +140,12 @@ void DrawScreen(void)
     MacUILib_printf("ListSize: %d\n",foodPosArrayList->getSize()); 
 
     for (int i = 0; i < foodPosArrayList->getSize(); i++) {
-        MacUILib_printf("X Coord: %d Y Coord %d\n", foodPosArrayList->getElement(i).pos->x, foodPosArrayList->getElement(i).pos->x);
+        MacUILib_printf("X Coord: %d Y Coord %d\n", foodPosArrayList->getElement(i).pos->x, foodPosArrayList->getElement(i).pos->y);
+    }
+
+    for (int i = 0; i < 5; i++) {
+        MacUILib_printf("X Coord: %d Y Coord %d LAST\n", lastFoodPrint[i].pos->x, lastFoodPrint[i].pos->y);
+
     }
     if(myGM->getLoseFlagStatus())
         MacUILib_printf("YOU LOSE\n");
