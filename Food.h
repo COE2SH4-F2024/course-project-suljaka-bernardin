@@ -8,7 +8,7 @@
 class Food {
 
     private:
-        objPos foodPos;
+        objPosArrayList* foodBucket;
 
         // We need to inclue a pointer to mainGameMechsRef to access X and Y values
         GameMechs* mainGameMechsRef;
@@ -26,7 +26,7 @@ class Food {
         Food& operator=(const Food &a); 
 
         void generateFood(objPosArrayList* blockOff);
-        objPos getFoodPos();
+        objPosArrayList* getFoodPos();
 
 
 };

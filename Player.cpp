@@ -341,15 +341,18 @@ char Player::getInput() {
 
 bool Player::checkFoodConsumption()
 {
-    if (playerPosList->getHeadElement().pos->x == foodBin->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == foodBin->getFoodPos().pos->y)
+    for (int i = 0; i < foodBin->getFoodPos()->getSize(); i++)
     {
-        return true;
+        if (playerPosList->getHeadElement().pos->x == foodBin->getFoodPos()->getElement(i).pos->x && playerPosList->getHeadElement().pos->y == foodBin->getFoodPos()->getElement(i).pos->y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    else
-    {
-        return false;
-    }
-}
+}  
 
 void Player::increasePlayerLength(objPos playerPos)
 {

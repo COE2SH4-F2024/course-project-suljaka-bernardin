@@ -73,9 +73,11 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
     objPosArrayList* playerPosArrayList = myPlayer->getPlayerPos(); // This is an edit implemented to accept the right data type
+    objPosArrayList* foodPosArrayList = myFood->getFoodPos();
     int boardY = myGM->getBoardSizeY();
     int boardX = myGM->getBoardSizeX();
     objPos snakePrint;
+    objPos foodPrint;
 
     // At this iteration, we need to change this to print the full snake
     for (int rows = 0; rows < boardY; rows++)
@@ -91,6 +93,19 @@ void DrawScreen(void)
                     snakePrint.pos->x = cols;
                     snakePrint.pos->y = rows;
                     snakePrint.symbol = playerPosArrayList->getElement(k).symbol;
+                }
+            }
+
+            // We copy the same logic for food printing, as we need to cycle through a number of elements
+
+            for (int k = 0; k < foodPosArrayList->getSize(); k++) {
+                if (rows == foodPosArrayList->getElement(k).pos->y && cols == foodPosArrayList->getElement(k).pos->x) {                    
+                    // Copying the snake values in if we have any.  We set those to the rows and columns of the array that are in.
+                    // If we print from here, the printing of the snake will not be done in the if/else statement and we will get a sapce character
+
+                    foodPrint.pos->x = cols;
+                    foodPrint.pos->y = rows;
+                    foodPrint.symbol = foodPosArrayList->getElement(k).symbol;
                 }
             }
 
@@ -110,9 +125,9 @@ void DrawScreen(void)
             // Like we also need to check EVERY value of the snake which is going to be a bit of a nightmare
             // We also need to make sure food won't print over the snake but that should be Iteration 2.
             }
-            else if (rows == myFood->getFoodPos().pos->y && cols == myFood->getFoodPos().pos->x)
+            else if (rows == foodPrint.pos->y && cols == foodPrint.pos->x)
             {
-                MacUILib_printf("%c", myFood->getFoodPos().symbol);
+                MacUILib_printf("%c", foodPrint.symbol);
             }
             else {
                 MacUILib_printf(" ");
