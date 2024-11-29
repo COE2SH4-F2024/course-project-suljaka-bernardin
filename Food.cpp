@@ -18,7 +18,7 @@ Food::Food()
 // do you need a destructor?
 Food::~Food()
 {
-
+    delete[] foodBucket;
 
 }
 
