@@ -42,7 +42,7 @@ class GameMechs
         int getBoardSizeY() const;
         
         int getScore() const;
-        void incrementScore();
+        void incrementScore(int inc_score);
 
         // Food Generation Methods
          void generateFood(objPosArrayList* blockOff);

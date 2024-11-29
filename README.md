@@ -4,16 +4,25 @@ Course Project
 
 You must watch the briefing video and read through the manual to engage in the development activities.
 
+Group Name/Number: suljaka-bernardin
+
 
 Team Information
+
 Member 1 MacID: suljaka
+
 Member 1 StudentID: 400517411
+
 Member 1 Lecture Section: C02
+
 Member 1 Lab Section: L01
 
 Member 2 MacID: bernan3
+
 Member 2 StudentID: 400506159
+
 Member 2 Lecture Section: C02
+
 Member 2 Lab Section: L05
 
 

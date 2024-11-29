@@ -136,17 +136,21 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("Score: %d\n", playerPosArrayList->getSize());
-    MacUILib_printf("ListSize: %d\n",foodPosArrayList->getSize()); 
+    MacUILib_printf("Score: %d\n",  myGM->getScore());
 
-    for (int i = 0; i < foodPosArrayList->getSize(); i++) {
-        MacUILib_printf("X Coord: %d Y Coord %d\n", foodPosArrayList->getElement(i).pos->x, foodPosArrayList->getElement(i).pos->y);
-    }
+    // Also for debugging
+    //MacUILib_printf("ListSize: %d\n",foodPosArrayList->getSize()); 
 
-    for (int i = 0; i < 5; i++) {
-        MacUILib_printf("X Coord: %d Y Coord %d LAST\n", lastFoodPrint[i].pos->x, lastFoodPrint[i].pos->y);
+    // For debugging purposes - commented out
 
-    }
+    // for (int i = 0; i < foodPosArrayList->getSize(); i++) {
+    //     MacUILib_printf("X Coord: %d Y Coord %d\n", foodPosArrayList->getElement(i).pos->x, foodPosArrayList->getElement(i).pos->y);
+    // }
+
+    // for (int i = 0; i < 5; i++) {
+    //     MacUILib_printf("X Coord: %d Y Coord %d LAST\n", lastFoodPrint[i].pos->x, lastFoodPrint[i].pos->y);
+
+    //}
     if(myGM->getLoseFlagStatus())
         MacUILib_printf("YOU LOSE\n");
     else if(myGM->getExitFlagStatus())

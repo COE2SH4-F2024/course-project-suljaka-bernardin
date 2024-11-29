@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "MacUILib.h"
+#include <time.h>
 
 // Our brand new default constructor!
 
@@ -349,6 +350,17 @@ bool Player::checkFoodConsumption()
     {
         if (playerPosList->getHeadElement().pos->x == foodBin->getFoodPos()->getElement(i).pos->x && playerPosList->getHeadElement().pos->y == foodBin->getFoodPos()->getElement(i).pos->y)
         {
+            if (foodBin->getFoodPos()->getElement(i).symbol == 'A')
+                mainGameMechsRef->incrementScore(1);
+            else
+            {
+
+                // The special food implemented will change the score by a random value between -10 and 10
+                // Snake size will increase regardless
+                srand(time(NULL));
+                int rand_score = rand() %(21) - 10;
+                mainGameMechsRef->incrementScore(rand_score);
+            }
             return true;
         }
     }
