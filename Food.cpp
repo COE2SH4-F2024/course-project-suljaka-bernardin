@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include <time.h>
 
+
 Food::Food()
 {
 
@@ -48,17 +49,24 @@ Food& Food::operator=(const Food &a)
 
 void Food::generateFood(objPosArrayList* blockOff)
 {
-    
-    for (int j = 0; j<5; j++)
+    // objPos nullPos(0,0,NULL);
+    // for (int i = 0; i < NUMFOODS; i++)
+    // {
+    //     foodBucket->insertHead(nullPos);
+    //     foodBucket->removeTail();
+    // }
+
+    for (int j = 0; j<NUMFOODS; j++)
     {
         int prev_reset = 1;
         int rand_x;
         int rand_y;
         objPos food_pos;
+        srand(time(NULL));
         while (prev_reset)
         {
             prev_reset = 0;
-            srand(time(NULL));
+            
             rand_x = rand() % (boardX - 2)+1; //Initially sets x and y coordinates
             rand_y = rand() % (boardY - 2)+1;
         
@@ -72,6 +80,7 @@ void Food::generateFood(objPosArrayList* blockOff)
                     rand_x = rand() % (boardX-2)+1;
                     rand_y = rand() % (boardY-2)+1;
                     reset = 1;
+                    prev_reset = 0;
                 }
                 if (reset)
                 {
@@ -79,7 +88,7 @@ void Food::generateFood(objPosArrayList* blockOff)
                     
                 }
             }
-            for (int p = 0; p < foodBucket->getSize();p++)
+            for (int p = 0; p < j;p++)
             {
                 int reset = 0;
                 if ((foodBucket->getElement(p).pos->x == rand_x && foodBucket->getElement(p).pos->y == rand_y) ) //Player or prev. obj pos
@@ -102,7 +111,16 @@ void Food::generateFood(objPosArrayList* blockOff)
             food_pos.pos->x = rand_x;
             food_pos.pos->y = rand_y;
             food_pos.symbol = 'A';
-            foodBucket->insertTail(food_pos);
+
+            if (firstPass < NUMFOODS) {
+                foodBucket->insertTail(food_pos);
+                firstPass++;
+            } else {
+                foodBucket->insertHead(food_pos);
+                foodBucket->removeTail();
+            }
+
+            // foodBucket->insertTail(food_pos);
 
             // if ((str[rand_char] == list[k].player) && i<2) //Generates for only 0,1
             // {
@@ -118,12 +136,6 @@ void Food::generateFood(objPosArrayList* blockOff)
             // k--;
         
         
-        // list[i].x = rand_x;
-        // list[i].y = rand_y;
-        // if (i<2)
-        // list[i].player = str[rand_char]; //rand char is index and picks from goal string
-        // else
-        // list[i].player = rand_char; //rand char is ascii value
     }
 }
 

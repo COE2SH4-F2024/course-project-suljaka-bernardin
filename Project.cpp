@@ -136,6 +136,11 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
     MacUILib_printf("Score: %d\n", playerPosArrayList->getSize());
+    MacUILib_printf("ListSize: %d\n",foodPosArrayList->getSize()); 
+
+    for (int i = 0; i < foodPosArrayList->getSize(); i++) {
+        MacUILib_printf("X Coord: %d Y Coord %d\n", foodPosArrayList->getElement(i).pos->x, foodPosArrayList->getElement(i).pos->x);
+    }
     if(myGM->getLoseFlagStatus())
         MacUILib_printf("YOU LOSE\n");
     else if(myGM->getExitFlagStatus())

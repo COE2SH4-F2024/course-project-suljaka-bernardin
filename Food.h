@@ -1,5 +1,6 @@
 #ifndef FOOD_H
 #define FOOD_H
+#define NUMFOODS 5
 
 #include "objPos.h"
 #include "objPosArrayList.h"
@@ -17,6 +18,7 @@ class Food {
 
         int boardX;
         int boardY;
+        int firstPass = 0; // This is used in the regeneration
 
     public:
         Food();

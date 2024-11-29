@@ -347,11 +347,8 @@ bool Player::checkFoodConsumption()
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
     }
+    return false;
 }  
 
 void Player::increasePlayerLength(objPos playerPos)
