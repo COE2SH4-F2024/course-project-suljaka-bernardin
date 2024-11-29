@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include "Food.h"
 
 using namespace std;
 
@@ -10,9 +11,7 @@ using namespace std;
 
 Player *myPlayer;
 GameMechs * myGM;
-
-// EARTH TO FUTURE ADAM THERE EXISTS A GETSCORE AND INCREMENT SCORE AND ALL THIS COOL STUFF PLS LOOK AT THE CLASS BUT IDK IF THIS IS ITERATION 3 OR NOT HAHAHAHAH
-
+Food *myFood;
 
 
 void Initialize(void);
@@ -48,8 +47,9 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     myGM = new GameMechs();
-    myPlayer = new Player(myGM);
-    myGM->generateFood(myPlayer->getPlayerPos());
+    myFood = new Food(myGM);
+    myPlayer = new Player(myGM, myFood);
+    myFood->generateFood(myPlayer->getPlayerPos());
 
 
 }
@@ -110,9 +110,9 @@ void DrawScreen(void)
             // Like we also need to check EVERY value of the snake which is going to be a bit of a nightmare
             // We also need to make sure food won't print over the snake but that should be Iteration 2.
             }
-            else if (rows == myGM->getFoodPos().pos->y && cols == myGM->getFoodPos().pos->x)
+            else if (rows == myFood->getFoodPos().pos->y && cols == myFood->getFoodPos().pos->x)
             {
-                MacUILib_printf("%c", myGM->getFoodPos().symbol);
+                MacUILib_printf("%c", myFood->getFoodPos().symbol);
             }
             else {
                 MacUILib_printf(" ");

@@ -4,6 +4,7 @@
 #include "GameMechs.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
+#include "Food.h"
 
 class Player
 {
@@ -19,7 +20,7 @@ class Player
         // It is interesting that this is public, and to be honest, not fully determined why this is public
         enum Dir {STOP, UP, DOWN, LEFT, RIGHT};  // This is the direction state
 
-        Player(GameMechs* thisGMRef);
+        Player(GameMechs* thisGMRef, Food* thisFoodRef);
 
         // Adding the default constructor
         Player();
@@ -49,6 +50,9 @@ class Player
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
+
+        // Need a reference to the food bin.
+        Food* foodBin;
 
         // This is a character that will be used for debugging
         char state = 'x';

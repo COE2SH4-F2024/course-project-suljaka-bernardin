@@ -27,12 +27,16 @@ Player::Player() {
 }
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
 
     // Setting up our new reference to the Game Mechanics Reference
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+
+    // Copying over the reference to the new Food class
+
+    foodBin = thisFoodRef;
 
     // These will start us at the halfway point of the board (9 and 5 ish, should start us at the centre)
 
@@ -64,6 +68,8 @@ Player::~Player()
 
 Player::Player(const Player &a) {
     mainGameMechsRef = a.mainGameMechsRef;
+    foodBin = a.foodBin;
+
 
     // Deep copy everything previously in the copy constructor!!
 
@@ -90,6 +96,9 @@ Player& Player::operator=(const Player &a) {
     if (this != &a) {
 
         // Deep copy as previously seen in Copy Constructor
+
+        mainGameMechsRef = a.mainGameMechsRef;
+        foodBin = a.foodBin;
 
 
         objPos playerPos;
@@ -245,7 +254,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
-                mainGameMechsRef->generateFood(playerPosList);
+                foodBin->generateFood(playerPosList);
             } else {
                 standardMovement(playerPos);
             }
@@ -268,7 +277,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
-                mainGameMechsRef->generateFood(playerPosList);
+                foodBin->generateFood(playerPosList);
             } else {
                 standardMovement(playerPos);
             }
@@ -289,7 +298,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
-                mainGameMechsRef->generateFood(playerPosList);
+                foodBin->generateFood(playerPosList);
 
             } else {
                 standardMovement(playerPos);
@@ -311,7 +320,7 @@ void Player::movePlayer()
 
             if (checkFoodConsumption()) {
                 increasePlayerLength(playerPos);
-                mainGameMechsRef->generateFood(playerPosList);
+                foodBin->generateFood(playerPosList);
             } else {
                 standardMovement(playerPos);
             }
@@ -332,7 +341,7 @@ char Player::getInput() {
 
 bool Player::checkFoodConsumption()
 {
-    if (playerPosList->getHeadElement().pos->x == mainGameMechsRef->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == mainGameMechsRef->getFoodPos().pos->y)
+    if (playerPosList->getHeadElement().pos->x == foodBin->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == foodBin->getFoodPos().pos->y)
     {
         return true;
     }
