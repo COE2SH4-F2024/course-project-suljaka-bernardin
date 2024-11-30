@@ -173,6 +173,9 @@ void CleanUp(void)
 
     MacUILib_uninit();
 
-    delete myPlayer;
-    delete myGM;
+    // delete myPlayer;
+    // delete myGM;
+    myPlayer->~Player();
+    myGM->~GameMechs();
+    myFood->~Food();
 }
