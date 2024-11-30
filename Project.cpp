@@ -101,8 +101,8 @@ void DrawScreen(void)
 
             for (int k = 0; k < foodPosArrayList->getSize(); k++) {
                 if (rows == foodPosArrayList->getElement(k).pos->y && cols == foodPosArrayList->getElement(k).pos->x) {                    
-                    // Copying the snake values in if we have any.  We set those to the rows and columns of the array that are in.
-                    // If we print from here, the printing of the snake will not be done in the if/else statement and we will get a sapce character
+                    // Copying the food values in if we have any.  We set those to the rows and columns of the array that are in.
+                    // If we print from here, the printing of the food will not be done in the if/else statement and we will get a sapce character
 
                     foodPrint.pos->x = cols;
                     foodPrint.pos->y = rows;

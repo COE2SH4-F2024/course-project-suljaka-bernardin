@@ -25,9 +25,9 @@ Food::~Food()
 Food::Food(GameMechs* thisGMRef) {
     mainGameMechsRef = thisGMRef;
     
-    foodBucket = new objPosArrayList;
+    foodBucket = new objPosArrayList; //Creates an new instance of a objPos Array List to hold all positions of the apples on the board
 
-    boardX = mainGameMechsRef->getBoardSizeX();
+    boardX = mainGameMechsRef->getBoardSizeX(); // Food generation requires board sizes to ensure porper coordinate generations
     boardY = mainGameMechsRef->getBoardSizeY();
 }
 
@@ -274,7 +274,7 @@ void Food::generateFood(objPosArrayList* blockOff)
     }
 
 
-objPosArrayList* Food::getFoodPos()
+objPosArrayList* Food::getFoodPos() //Function was changed for advanced feature to return an objPosArrayList pointer to the food bucket of all apple postions
 {
     return foodBucket;
 }

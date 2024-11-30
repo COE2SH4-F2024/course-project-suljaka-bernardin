@@ -89,7 +89,7 @@ int GameMechs::getScore() const
     return score;
 }
 
-void GameMechs::incrementScore(int inc_score)
+void GameMechs::incrementScore(int inc_score) //Function was changed from a basic increment score by 1 to accepting a parameter for how much to change the score
 {
     score += inc_score;
 }
@@ -127,6 +127,8 @@ void GameMechs::clearInput()
 {
     input = NULL;
 }
+
+//Code from iteration 2B for single apple generation before creation of food class
 
 // More methods should be added here
 // void GameMechs::generateFood(objPosArrayList* blockOff)
