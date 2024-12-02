@@ -2,6 +2,8 @@
 #include "MacUILib.h"
 #include <time.h>
 
+// Note: The "Advanced Feature" for special food is changing the score by a random value between -10 and 10
+
 
 Food::Food()
 {
