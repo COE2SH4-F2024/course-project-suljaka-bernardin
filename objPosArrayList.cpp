@@ -89,7 +89,6 @@ void objPosArrayList::insertHead(objPos thisPos)
     // First, a sanity check to ensure we are not above the arrayCap
 
     if (listSize > arrayCapacity) {
-        // CRY!!!
         return;
     } else {
 

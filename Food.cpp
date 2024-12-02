@@ -7,6 +7,7 @@ Food::Food()
 {
 
     // Setting them to the default size, just in case we end up in here
+    // We still do need to set a new array list.
 
     foodBucket = new objPosArrayList();
 
@@ -20,6 +21,8 @@ Food::Food()
 // do you need a destructor?
 Food::~Food()
 {
+
+    // Sanity check to make sure the food bucket is already null
 
     if (foodBucket != nullptr) {
         delete foodBucket;
@@ -39,6 +42,8 @@ Food::Food(GameMechs* thisGMRef) {
 Food::Food(const Food &a)
 {
 
+    // Standard copy constructor syntax
+
     mainGameMechsRef = a.mainGameMechsRef;
 
     foodBucket = new objPosArrayList();
@@ -47,9 +52,12 @@ Food::Food(const Food &a)
 }
 
 Food& Food::operator=(const Food &a)
+
+// Standard copy assignment operator syntax
 {
     if (this != &a)
     {
+        mainGameMechsRef = a.mainGameMechsRef;
         boardX = a.mainGameMechsRef->getBoardSizeX();
         boardY = a.mainGameMechsRef->getBoardSizeY();
     }
@@ -57,107 +65,8 @@ Food& Food::operator=(const Food &a)
 }
 
 
-
-// void Food::generateFood(objPosArrayList* blockOff)
-// {
-    // objPos nullPos(0,0,NULL);
-    // for (int i = 0; i < NUMFOODS; i++)
-    // {
-    //     foodBucket->insertHead(nullPos);
-    //     foodBucket->removeTail();
-    // }
-
-//     for (int j = 0; j<NUMFOODS; j++)
-//     {
-//         int prev_reset = 1;
-//         int rand_x;
-//         int rand_y;
-//         objPos food_pos;
-//         srand(time(NULL));
-//         while (prev_reset)
-//         {
-//             prev_reset = 0;
-            
-//             rand_x = rand() % (boardX - 2)+1; //Initially sets x and y coordinates
-//             rand_y = rand() % (boardY - 2)+1;
-        
-        
-            
-//             for (int i = 0; i<blockOff->getSize();i++)
-//             {
-//                 int reset = 0;
-//                 if ((blockOff->getElement(i).pos->x == rand_x && blockOff->getElement(i).pos->y == rand_y))
-//                 {
-//                     rand_x = rand() % (boardX-2)+1;
-//                     rand_y = rand() % (boardY-2)+1;
-//                     reset = 1;
-//                     prev_reset = 0;
-//                 }
-//                 if (reset)
-//                 {
-//                     i = -1;
-                    
-//                 }
-//             }
-//             for (int p = 0; p < j;p++)
-//             {
-//                 int reset = 0;
-//                 if ((foodBucket->getElement(p).pos->x == rand_x && foodBucket->getElement(p).pos->y == rand_y) ) //Player or prev. obj pos
-//                 {
-//                     rand_x = rand() % (boardX-2)+1;
-//                     rand_y = rand() % (boardY-2)+1;
-//                     reset = 1;
-//                     prev_reset = 0;
-//                 }
-//                 if (reset)
-//                 {
-//                     p = -1;
-                    
-//                 }
-//             }
-//             if (prev_reset)
-//                 prev_reset = 1;
-
-//         }
-//             food_pos.pos->x = rand_x;
-//             food_pos.pos->y = rand_y;
-//             food_pos.symbol = 'A';
-
-//             if (firstPass < NUMFOODS) {
-//                 foodBucket->insertTail(food_pos);
-//                 firstPass++;
-//             } else {
-//                 foodBucket->insertHead(food_pos);
-//                 foodBucket->removeTail();
-//             }
-
-//             // foodBucket->insertTail(food_pos);
-
-//             // if ((str[rand_char] == list[k].player) && i<2) //Generates for only 0,1
-//             // {
-//             //     rand_char = rand() % (12);
-//             //     reset = 1;
-//             // }
-//             // else if ((rand_char == list[k].player && i>1)|| (rand_char == 64 || rand_char == 35)) //Won't make @ or #, gens any rand char
-//             // {
-//             //     rand_char = rand() %(127-33)+33;
-//             //     reset = 1;
-//             // }
-//             // if (reset) 
-//             // k--;
-        
-        
-//     }
-// }
-
 void Food::generateFood(objPosArrayList* blockOff)
 {
-    // objPos nullPos(0,0,NULL);
-    // for (int i = 0; i < NUMFOODS; i++)
-    // {
-    //     foodBucket->insertHead(nullPos);
-    //     foodBucket->removeTail();
-    // }
 
     int currentPosition = 0; // This is an index
     int noMatches; // This is for a boolean (using integer because of PPA3 port)
@@ -258,27 +167,8 @@ void Food::generateFood(objPosArrayList* blockOff)
 
                 foodBucket->insertTail(foodPos);
 
-                // foodBucket->insertHead(foodPos);
-                // foodBucket->removeTail();
-
             }
         } while (currentPosition < NUMFOODS);
-
-            // foodBucket->insertTail(food_pos);
-
-            // if ((str[rand_char] == list[k].player) && i<2) //Generates for only 0,1
-            // {
-            //     rand_char = rand() % (12);
-            //     reset = 1;
-            // }
-            // else if ((rand_char == list[k].player && i>1)|| (rand_char == 64 || rand_char == 35)) //Won't make @ or #, gens any rand char
-            // {
-            //     rand_char = rand() %(127-33)+33;
-            //     reset = 1;
-            // }
-            // if (reset) 
-            // k--;
-        
         
     }
 
@@ -289,6 +179,7 @@ objPosArrayList* Food::getFoodPos() //Function was changed for advanced feature 
 }
 
 objPos* Food::getLastFood() {
+    // This function returns a pointer to the LastFood array (see DeleteFoodArray)
     return lastFood;
 }
 
@@ -296,6 +187,8 @@ void Food::deleteFoodArray() {
 
     // This funtion will bookmark the last food generated into a new lastFood array.
     // Then, it will completely clear the list.
+
+    // This function was needed to prevent the array from regenerating in the last specified coordinates.
 
     for (int i = NUMFOODS - 1; i >= 0; i--) {
 

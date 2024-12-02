@@ -86,10 +86,12 @@ void DrawScreen(void)
         for (int cols = 0; cols<boardX; cols++)
         {
 
+            // We first use a FOR loop to print out the snake.  We check to see if we are at values of the snake, and then copy them to a temporary object.
+
             for (int k = 0; k < playerPosArrayList->getSize(); k++) {
                 if (rows == playerPosArrayList->getElement(k).pos->y && cols == playerPosArrayList->getElement(k).pos->x) {                    
                     // Copying the snake values in if we have any.  We set those to the rows and columns of the array that are in.
-                    // If we print from here, the printing of the snake will not be done in the if/else statement and we will get a sapce character
+                    // If we print from here, the printing of the snake will not be done in the if/else statement and we will get a space character
 
                     snakePrint.pos->x = cols;
                     snakePrint.pos->y = rows;
@@ -110,54 +112,48 @@ void DrawScreen(void)
                 }
             }
 
+            // If we are at the edges of the board, print the border character #
+
             
             if (rows == 0 || rows == boardY - 1||cols == 0||cols == boardX - 1) {
                 MacUILib_printf("#");
 
+            // If we are at an index of the snake, print whatever character is next in the snake
 
             } else if (cols == snakePrint.pos->x && rows == snakePrint.pos->y) {
 
                 MacUILib_printf("%c", snakePrint.symbol);
             
+            // If we are at a food character, print out whatever food character we are at
 
-            
-
-            // This is problematic because we will probably need another drawing condition here.
-            // Like we also need to check EVERY value of the snake which is going to be a bit of a nightmare
-            // We also need to make sure food won't print over the snake but that should be Iteration 2.
             }
+
             else if (rows == foodPrint.pos->y && cols == foodPrint.pos->x)
             {
                 MacUILib_printf("%c", foodPrint.symbol);
             }
+
+            // If none of the above are satisfied, print out a space character.
             else {
                 MacUILib_printf(" ");
             }
         }
+
+        // At the end of the nested FOR loop, go to a new line
+
         MacUILib_printf("\n");
     }
+
+    // Printing the score
+
     MacUILib_printf("Score: %d\n",  myGM->getScore());
 
-    // Also for debugging
-    //MacUILib_printf("ListSize: %d\n",foodPosArrayList->getSize()); 
-
-    // For debugging purposes - commented out
-
-    // for (int i = 0; i < foodPosArrayList->getSize(); i++) {
-    //     MacUILib_printf("X Coord: %d Y Coord %d\n", foodPosArrayList->getElement(i).pos->x, foodPosArrayList->getElement(i).pos->y);
-    // }
-
-    // for (int i = 0; i < 5; i++) {
-    //     MacUILib_printf("X Coord: %d Y Coord %d LAST\n", lastFoodPrint[i].pos->x, lastFoodPrint[i].pos->y);
-
-    //}
+    // Printing the ending message based on if the player loses or if the player gives up
     if(myGM->getLoseFlagStatus())
         MacUILib_printf("YOU LOSE\n");
     else if(myGM->getExitFlagStatus())
         MacUILib_printf("YOU GAVE UP!\n");
         // This is amazing
-
-
 
 }
 
@@ -173,7 +169,7 @@ void CleanUp(void)
 
     MacUILib_uninit();
 
-    // Making sure we do not double delete.
+    // Making sure we do not double delete (sanity checks with null pointers to prevent this)
 
     if (myPlayer != nullptr) {
         delete myPlayer;
