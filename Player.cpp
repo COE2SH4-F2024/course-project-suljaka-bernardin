@@ -15,7 +15,7 @@ Player::Player() {
 
     // We will arbitrarily set this to 9 and 4, which are the centre of the board-ish
 
-    playerPosList = new objPosArrayList;
+    playerPosList = new objPosArrayList();
 
     // Passing in playerPos into the objPosArrayList
     playerPos.pos->x = 9;
@@ -41,7 +41,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 
     // These will start us at the halfway point of the board (9 and 5 ish, should start us at the centre)
 
-    playerPosList = new objPosArrayList;
+    playerPosList = new objPosArrayList();
 
     objPos playerPos;
 
@@ -62,7 +62,10 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 
 Player::~Player()
 {
-    delete playerPosList;
+
+    if (playerPosList != nullptr) {
+        delete playerPosList;
+    }
 }
 
 // COPY CONSTRUCTOR ----------
@@ -74,7 +77,7 @@ Player::Player(const Player &a) {
 
     // Deep copy everything previously in the copy constructor!!
 
-    playerPosList = new objPosArrayList;
+    playerPosList = new objPosArrayList();
 
     objPos playerPos;
 

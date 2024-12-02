@@ -43,6 +43,10 @@ objPosArrayList::objPosArrayList(const objPosArrayList &a) {
 
     // Deep copying the contents of aList, up to the size of listSize.
 
+    for (int i = 0; i < listSize; i++) {
+        aList[i] = a.aList[i];
+    }
+
 }
 
 // Implementing the copy assignment constructor!

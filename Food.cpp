@@ -8,6 +8,8 @@ Food::Food()
 
     // Setting them to the default size, just in case we end up in here
 
+    foodBucket = new objPosArrayList();
+
     boardX = 30;
     boardY = 15;
 
@@ -18,14 +20,17 @@ Food::Food()
 // do you need a destructor?
 Food::~Food()
 {
-    delete[] foodBucket;
+
+    if (foodBucket != nullptr) {
+        delete foodBucket;
+    }
 
 }
 
 Food::Food(GameMechs* thisGMRef) {
     mainGameMechsRef = thisGMRef;
     
-    foodBucket = new objPosArrayList; //Creates an new instance of a objPos Array List to hold all positions of the apples on the board
+    foodBucket = new objPosArrayList(); //Creates an new instance of a objPos Array List to hold all positions of the apples on the board
 
     boardX = mainGameMechsRef->getBoardSizeX(); // Food generation requires board sizes to ensure porper coordinate generations
     boardY = mainGameMechsRef->getBoardSizeY();
@@ -33,6 +38,10 @@ Food::Food(GameMechs* thisGMRef) {
 
 Food::Food(const Food &a)
 {
+
+    mainGameMechsRef = a.mainGameMechsRef;
+
+    foodBucket = new objPosArrayList();
     boardX = a.mainGameMechsRef->getBoardSizeX();
     boardY = a.mainGameMechsRef->getBoardSizeY();
 }

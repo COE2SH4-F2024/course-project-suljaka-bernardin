@@ -173,9 +173,20 @@ void CleanUp(void)
 
     MacUILib_uninit();
 
-    // delete myPlayer;
-    // delete myGM;
-    myPlayer->~Player();
-    myGM->~GameMechs();
-    myFood->~Food();
+    // Making sure we do not double delete.
+
+    if (myPlayer != nullptr) {
+        delete myPlayer;
+    }
+
+    if (myGM != nullptr) {
+        delete myGM;
+    }
+    
+    if (myFood != nullptr) {
+        delete myFood;
+    }
+    // myPlayer->~Player();
+    // myGM->~GameMechs();
+    // myFood->~Food();
 }
